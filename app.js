@@ -21,7 +21,7 @@ app.get('/add', (req, resp) => {
 
 app.post('/add', (req, resp) => {
     console.log(req.body);
-    resp.send('Success!!');
+    resp.send(req.body);
 });
 
 app.listen(settings.port, settings.host, () => {
