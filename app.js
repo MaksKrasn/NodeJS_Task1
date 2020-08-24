@@ -3,7 +3,8 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, resp) => {
+    
     console.log('Hello, Maks!!!')
 });
 
-app.listen(settings.port, settings.host);
+app.listen(settings.port, settings.host); 
