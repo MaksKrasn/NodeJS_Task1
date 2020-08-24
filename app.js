@@ -2,17 +2,35 @@ const settings = require('./settings');
 const express = require('express');
 const app = express();
 
+let userData = null;
+
 app.use(express.urlencoded({extended: false}));
+
+app.use('/data', (req, resp, next) => {
+    if(userData.firstname == '' || userData.lastname == ''){
+        resp.send('Нет данных');
+    }
+    next();
+});
 
 app.get('/home', (req, resp) => {
     var now = new Date();
-    resp.sendFile(__dirname + '/index.html');
+    resp.send(`<div>
+                    <h2>${now}</h2>
+                </div>`);
     console.log('Hello, Maks!!!');
 
 });
 
 app.get('/data', (req, resp) => {
-
+    resp.send(`<div>
+                    <p>${userData.firstname}</p>
+                    <p>${userData.lastname}</p>
+                    <p>${userData.age}</p>
+                    <p>${userData.email}</p>
+                    <p>${userData.sity}</p>
+                    <p>${userData.country}</p>
+                </div>`);
 });
 
 app.get('/add', (req, resp) => {
@@ -20,8 +38,8 @@ app.get('/add', (req, resp) => {
 });
 
 app.post('/add', (req, resp) => {
-    console.log(req.body);
-    resp.send(req.body);
+    userData = req.body;
+    resp.redirect('/data');
 });
 
 app.listen(settings.port, settings.host, () => {
