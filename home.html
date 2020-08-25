@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <form>
+        <input id = "time" value = "10" readonly="true" style="border: none; width: 1400px; font-size: 24px;">
+    </form>
+    
+    <form method="POST">
+        <button style="font-size: large; margin: 10px;">Add new user</button>
+    </form>
+    <script type = "text/javascript">
+        function currentTime(){
+            var now = new Date();
+            return now.toString();
+         }
+        var timeHeader = document.getElementById("time");
+        timeHeader.setAttribute('value', currentTime());
+    </script>
+</body>
+</html>

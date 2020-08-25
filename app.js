@@ -14,12 +14,11 @@ app.use('/data', (req, resp, next) => {
 });
 
 app.get('/home', (req, resp) => {
-    var now = new Date();
-    resp.send(`<div>
-                    <h2>${now}</h2>
-                </div>`);
-    console.log('Hello, Maks!!!');
+    resp.sendFile(__dirname + '/home.html');
+});
 
+app.post('/home', (req, resp) => {
+    resp.redirect('/add');
 });
 
 app.get('/data', (req, resp) => {
