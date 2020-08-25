@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data</title>
+</head>
+<body>
+    <h3>User data:</h3>
+    <form>
+        <div>
+            <label>Firstname: </label>
+            <input type="text" id="firstname" readonly = "true" style="border: none;">
+        </div>
+        <div>
+            <label>Lastname: </label>
+            <input type="text" id="lastname" readonly = "true" style="border: none;">
+        </div>
+        <div>
+            <label>Age: </label>
+            <input type="number" id="age" readonly = "true" style="border: none;">
+        </div>
+        <div>
+            <label>Email: </label>
+            <input type="text" id="email" readonly = "true" style="border: none;">
+        </div>
+        <div>
+            <label>Sity: </label>
+            <input type="text" id="sity" readonly = "true" style="border: none;">
+        </div>
+        <div>
+            <label>Country: </label>
+            <input type="text" id="country" readonly = "true" style="border: none;">
+        </div>
+    </form>
+    <script type = "text/javascript">
+        var firstname = document.getElementById("firstname");
+        var lastname = document.getElementById("lastname");
+        var age = document.getElementById("age");
+        var email = document.getElementById("email");
+        var sity = document.getElementById("sity");
+        var country = document.getElementById("country");
+
+        var request = new XMLHttpRequest();
+        request.open("POST", "/data", false);
+        request.send();
+        var status = request.status;
+        if(status==200){
+            let user = JSON.parse(request.responseText);
+            firstname.setAttribute("value", user.firstname);
+            lastname.setAttribute("value", user.lastname);
+            age.setAttribute("value", user.age);
+            email.setAttribute("value", user.email);
+            sity.setAttribute("value", user.sity);
+            country.setAttribute("value", user.country);
+        }   
+        else if(status==404)
+            document.write("Ресурс не найден")
+        else
+            document.write(request.statusText)
+    </script>
+</body>
+</html>

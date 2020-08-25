@@ -8,9 +8,13 @@ app.use(express.urlencoded({extended: false}));
 
 app.use('/data', (req, resp, next) => {
     if(userData.firstname == '' || userData.lastname == ''){
-        resp.send('Нет данных');
+        resp.send(`<h3>Нет данных пользователя</h3>`);
     }
     next();
+});
+
+app.get('/', (req, resp) => {
+    resp.redirect('/home');
 });
 
 app.get('/home', (req, resp) => {
@@ -22,14 +26,12 @@ app.post('/home', (req, resp) => {
 });
 
 app.get('/data', (req, resp) => {
-    resp.send(`<div>
-                    <p>${userData.firstname}</p>
-                    <p>${userData.lastname}</p>
-                    <p>${userData.age}</p>
-                    <p>${userData.email}</p>
-                    <p>${userData.sity}</p>
-                    <p>${userData.country}</p>
-                </div>`);
+    resp.sendFile(__dirname + '/data.html');
+});
+
+app.post('/data', (req,resp) => {
+    var serializedUser = JSON.stringify(userData);
+    resp.send(serializedUser);
 });
 
 app.get('/add', (req, resp) => {
